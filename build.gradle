@@ -15,6 +15,9 @@ dependencies {
     testImplementation 'org.assertj:assertj-core:3.21.0'
 
     compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.22'
 
     implementation 'com.h2database:h2:1.4.200'
     implementation 'org.hibernate:hibernate-entitymanager:5.6.1.Final'
