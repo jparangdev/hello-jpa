@@ -10,14 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
@@ -27,16 +24,35 @@ import lombok.ToString;
 // @AllArgsConstructor
 @ToString(exclude = {"searchCondition","searchKeyword"})
 @Access(AccessType.FIELD)
+// @SequenceGenerator(name = "S_EMP_GENERATOR"
+// 	, sequenceName = "s_EMP_SEQUENCE"
+// 	, initialValue = 5
+// 	, allocationSize = 2)
+// @TableGenerator(name = "SEQ_GENERATOR"
+// 	, table = "SHOPPING_SEQUENCES"
+// 	, pkColumnName = "SEQ_NAME"
+// 	, pkColumnValue = "EMP_SEQ"
+// 	, valueColumnName = "NEXT_VALUE"
+// 	, initialValue = 1
+// 	, allocationSize = 1)
 public class Employee {
-	@Id	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(length = 7, nullable = false)
-	private long id;
+
+	// @Id
+	// @GeneratedValue(strategy = GenerationType.IDENTITY)
+	// @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_EMP_GENERATOR")
+	// @GeneratedValue(strategy = GenerationType.TABLE, generator = "SEQ_GENERATOR")
+	// @GeneratedValue(strategy = GenerationType.AUTO)
+	// @Column(length = 7, nullable = false)
+	// private long id;
+
+	@Id
+	private EmployeeId employeeId;
 
 	@Column(length = 25, nullable = false)
 	private String name;
 
-	@Column(length = 8, unique = true)
-	private String mailId;
+	// @Column(length = 8, unique = false)
+	// private String mailId;
 
 	@Column(name = "START_DATE", insertable = true)
 	// @Temporal(TemporalType.DATE)

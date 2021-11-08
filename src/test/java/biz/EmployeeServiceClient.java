@@ -1,7 +1,5 @@
 package biz;
 
-import java.util.Date;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -20,32 +18,38 @@ public class EmployeeServiceClient {
 		try  {
 			Employee employee = new Employee();
 			// employee.setId(2L);
-			employee.setName("둘리");
-			employee.setMailId("gurum");
-			employee.setStartDate(new Date());
-			employee.setTitle("과장");
-			employee.setDeptName("총무부");
-			employee.setSalary(2500.00);
-			employee.setCommissionPct(12.50);
+
+			EmployeeId employeeId = new EmployeeId(1L, "guest123");
+			employee.setEmployeeId(employeeId);
+			// employee.setName("둘리");
+			// // employee.setMailId("gurum");
+			// employee.setStartDate(new Date());
+			// employee.setTitle("과장");
+			// employee.setDeptName("총무부");
+			// employee.setSalary(2500.00);
+			// employee.setCommissionPct(12.50);
 
 			// Employee employee = new Employee(1L, "둘리", "gurum", new Date(), "과장", "총무부"
 			// , 2500.00, 12.50, null, null);
 
-			tx.begin();
-			System.out.println("등록 전 ID: "+employee.getId());
-			em.persist(employee);
+			// tx.begin();
+			// System.out.println("등록 전 ID: "+employee.getId());
+			// em.persist(employee);
 
-			for (int i = 0; i < 30; i++) {
-				 Thread.sleep(1000);
-				System.out.println("ZZZ....");
-			}
+			// for (int i = 0; i < 30; i++) {
+			// 	 Thread.sleep(1000);
+			// 	System.out.println("ZZZ....");
+			// }
 
-			System.out.println("등록 후 ID: "+employee.getId());
-			tx.commit();
+			// System.out.println("등록 후 ID: "+employee.getId());
+			// tx.commit();
 
 			// Employee findEmployee = em.find(Employee.class, 1L);
 			// System.out.println("검색한 회원정보");
 			// System.out.println(findEmployee.toString());
+			Employee findEmployee = em.find(Employee.class, employeeId);
+			System.out.println("검색된 직원 정보 : " + findEmployee.toString());
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			tx.rollback();
