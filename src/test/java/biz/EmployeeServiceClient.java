@@ -1,54 +1,39 @@
 package biz;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.FlushModeType;
 import javax.persistence.Persistence;
 
 public class EmployeeServiceClient {
 
 	public static void main(String[] args) {
 		EntityManagerFactory emf
-			= Persistence.createEntityManagerFactory("Chapter02");
+			= Persistence.createEntityManagerFactory("Chapter03");
 
 		EntityManager em = emf.createEntityManager();
+		em.setFlushMode(FlushModeType.COMMIT);
 
 		EntityTransaction tx = em.getTransaction();
 
-		try  {
-			Employee employee = new Employee();
-			// employee.setId(2L);
+		try {
+			tx.begin();
+			for (int i = 0; i < 5; i++) {
+				Employee employee = new Employee();
+				employee.setName("직원" + i);
+				em.persist(employee);
+			}
+			tx.commit();
 
-			EmployeeId employeeId = new EmployeeId(1L, "guest123");
-			employee.setEmployeeId(employeeId);
-			// employee.setName("둘리");
-			// // employee.setMailId("gurum");
-			// employee.setStartDate(new Date());
-			// employee.setTitle("과장");
-			// employee.setDeptName("총무부");
-			// employee.setSalary(2500.00);
-			// employee.setCommissionPct(12.50);
+			String jpql = "SELECT e FROM Employee e ORDER BY e.id DESC";
+			List<Employee> employeeList = em.createQuery(jpql, Employee.class).getResultList();
 
-			// Employee employee = new Employee(1L, "둘리", "gurum", new Date(), "과장", "총무부"
-			// , 2500.00, 12.50, null, null);
-
-			// tx.begin();
-			// System.out.println("등록 전 ID: "+employee.getId());
-			// em.persist(employee);
-
-			// for (int i = 0; i < 30; i++) {
-			// 	 Thread.sleep(1000);
-			// 	System.out.println("ZZZ....");
-			// }
-
-			// System.out.println("등록 후 ID: "+employee.getId());
-			// tx.commit();
-
-			// Employee findEmployee = em.find(Employee.class, 1L);
-			// System.out.println("검색한 회원정보");
-			// System.out.println(findEmployee.toString());
-			Employee findEmployee = em.find(Employee.class, employeeId);
-			System.out.println("검색된 직원 정보 : " + findEmployee.toString());
+			for (Employee employee : employeeList) {
+				System.out.println("--> " + employee.toString());
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
