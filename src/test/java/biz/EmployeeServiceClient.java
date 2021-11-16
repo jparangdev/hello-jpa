@@ -28,7 +28,7 @@ public class EmployeeServiceClient {
 			}
 			tx.commit();
 
-			String jpql = "SELECT e FROM Employee e ORDER BY e.id DESC";
+			String jpql = "SELECT e FROM Employee e ORDER BY e.Id DESC";
 			List<Employee> employeeList = em.createQuery(jpql, Employee.class).getResultList();
 
 			for (Employee employee : employeeList) {

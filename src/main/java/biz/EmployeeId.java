@@ -19,6 +19,6 @@ import lombok.ToString;
 public class EmployeeId implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
+	private Long Id;
 	private String mailId;
 }

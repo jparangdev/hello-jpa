@@ -26,8 +26,12 @@ public class Employee {
 
 	// @ManyToOne(optional = false) // 내부조인
 	// @ManyToOne // 외부조인
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "DEPT_ID")
-	Department department;
+	private Department department;
 
+	public void setDepartment(Department department) {
+		this.department = department;
+		department.getEmployeeList().add(this);
+	}
 }
