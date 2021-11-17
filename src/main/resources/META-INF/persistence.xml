@@ -6,7 +6,7 @@
 http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 
 	<!-- 영속성 유닛 설정 -->
-	<persistence-unit name="Chapter04">
+	<persistence-unit name="Chapter05">
 		<class>biz.Employee</class>
 		<class>biz.Department</class>
 

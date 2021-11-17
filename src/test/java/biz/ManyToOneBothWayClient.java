@@ -50,17 +50,17 @@ public class ManyToOneBothWayClient {
 
 		Department department = new Department();
 		department.setName("개발부");
-		em.persist(department);
+		// em.persist(department);
 
 		Employee employee1 = new Employee();
 		employee1.setName("둘리");
 		employee1.setDepartment(department);
 		em.persist(employee1);
 
-		Employee employee2 = new Employee();
-		employee2.setName("도우너");
-		employee2.setDepartment(department);
-		em.persist(employee2);
+		// Employee employee2 = new Employee();
+		// employee2.setName("도우너");
+		// employee2.setDepartment(department);
+		// em.persist(employee2);
 
 		System.out.println(department.getName() + " 사이즈:" + department.getEmployeeList().size());
 

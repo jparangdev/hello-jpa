@@ -1,8 +1,8 @@
 package biz;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,9 +24,7 @@ public class Employee {
 	@Column(length = 25, nullable = false)
 	private String name;
 
-	// @ManyToOne(optional = false) // 내부조인
-	// @ManyToOne // 외부조인
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "DEPT_ID")
 	private Department department;
 
@@ -34,4 +32,5 @@ public class Employee {
 		this.department = department;
 		department.getEmployeeList().add(this);
 	}
+	
 }
