@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Builder;
@@ -17,7 +19,7 @@ import lombok.ToString;
 @Data
 @Entity
 @Table(name = "S_EMP")
-@ToString(exclude = "employeeCard")
+@ToString(exclude = "dept")
 @NoArgsConstructor
 public class Employee {
 
@@ -34,21 +36,29 @@ public class Employee {
 
 	private String title;
 
-	private String deptName;
+	@ManyToOne
+	@JoinColumn(name = "DEPT_ID")
+	private Department dept;
 
 	private Double salary;
 
 	private Double commissionPct;
 
+	public void setDept(Department department) {
+		this.dept = department;
+		if (department != null)
+			department.getEmployeeList().add(this);
+	}
+
 	@Builder
-	public Employee(Long id, String name, String mailId, LocalDate startDate, String title, String deptName,
+	public Employee(Long id, String name, String mailId, LocalDate startDate, String title, Department dept,
 		Double salary, Double commissionPct) {
 		this.id = id;
 		this.name = name;
 		this.mailId = mailId;
 		this.startDate = startDate;
 		this.title = title;
-		this.deptName = deptName;
+		this.dept = dept;
 		this.salary = salary;
 		this.commissionPct = commissionPct;
 	}
